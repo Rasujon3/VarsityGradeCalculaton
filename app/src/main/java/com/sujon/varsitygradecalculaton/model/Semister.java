@@ -8,10 +8,10 @@ import java.util.List;
 @Entity
 public class Semister {
     @PrimaryKey(autoGenerate = true)
-    int id ;
+    public int id ;
 
-    String semisterName;
-    double semisterCredit;
+    public String semisterName;
+    public double semisterCredit;
 
 
     public Semister(String semisterName, double semisterCredit) {

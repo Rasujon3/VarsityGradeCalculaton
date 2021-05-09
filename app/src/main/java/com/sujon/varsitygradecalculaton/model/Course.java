@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Course {
     @PrimaryKey(autoGenerate = true)
-    int id ;
+    public int id ;
 
-    String courseName;
-    double courseGpa;
-    double courseCredit;
-    int semisterId;
+    public String courseName;
+    public double courseGpa;
+    public double courseCredit;
+    public int semisterId;
 
     public Course(int id, String courseName, double courseGpa, double courseCredit, int semisterId) {
         this.id = id;
