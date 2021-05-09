@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Varsity_Grade_Calculaton.iml" filepath="$PROJECT_DIR$/.idea/modules/Varsity_Grade_Calculaton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Varsity_Grade_Calculaton.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Varsity_Grade_Calculaton.app.iml" />
+    </modules>
+  </component>
+</project>
