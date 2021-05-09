@@ -7,16 +7,20 @@ import androidx.room.PrimaryKey;
 public class Course {
     @PrimaryKey(autoGenerate = true)
     int id ;
-    
+
     String courseName;
     double courseGpa;
     double courseCredit;
+    int semisterId;
 
-    public Course(String courseName, double courseGpa, double courseCredit) {
+    public Course(int id, String courseName, double courseGpa, double courseCredit, int semisterId) {
+        this.id = id;
         this.courseName = courseName;
         this.courseGpa = courseGpa;
         this.courseCredit = courseCredit;
+        this.semisterId = semisterId;
     }
+
 
     public String getCourseName() {
         return courseName;
@@ -40,5 +44,13 @@ public class Course {
 
     public void setCourseCredit(double courseCredit) {
         this.courseCredit = courseCredit;
+    }
+
+    public int getSemisterId() {
+        return semisterId;
+    }
+
+    public void setSemisterId(int semisterId) {
+        this.semisterId = semisterId;
     }
 }

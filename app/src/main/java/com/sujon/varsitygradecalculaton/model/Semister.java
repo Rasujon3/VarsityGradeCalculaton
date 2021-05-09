@@ -12,12 +12,12 @@ public class Semister {
 
     String semisterName;
     double semisterCredit;
-    List<Course> semisterCourses;
 
-    public Semister(String semisterName, double semisterCredit, List<Course> semisterCourses) {
+
+    public Semister(String semisterName, double semisterCredit) {
         this.semisterName = semisterName;
         this.semisterCredit = semisterCredit;
-        this.semisterCourses = semisterCourses;
+
 
     }
 
@@ -37,11 +37,4 @@ public class Semister {
         this.semisterCredit = semisterCredit;
     }
 
-    public List<Course> getSemisterCourses() {
-        return semisterCourses;
-    }
-
-    public void setSemisterCourses(List<Course> semisterCourses) {
-        this.semisterCourses = semisterCourses;
-    }
 }
