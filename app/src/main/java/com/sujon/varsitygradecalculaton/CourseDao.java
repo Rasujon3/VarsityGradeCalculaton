@@ -13,7 +13,7 @@ public interface CourseDao {
     void DeleteCourse(Course course);
     @Update
     void UpdateCourse(Course course);
-    @Query("select * from Course where semisterId Like :semisterId")
+    @Query("select * from Course where semisterId = :semisterId")
     List<Course>GetCoursesBySemisterId(int semisterId);
 
     @Query("Delete from Course")

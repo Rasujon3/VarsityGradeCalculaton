@@ -9,7 +9,7 @@ import java.util.List;
 @Dao
 public interface SemisterDao {
     @Insert
-    void InsertSemister(Course course);
+    void InsertSemister(Semister course);
 
     @Delete
     void DeleteSemister(Course course);

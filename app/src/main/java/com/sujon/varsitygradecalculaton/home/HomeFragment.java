@@ -14,15 +14,19 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
+import com.sujon.varsitygradecalculaton.model.Semister;
 
 public class HomeFragment extends Fragment {
     View root;
+    GradeRepository repository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
+        repository = new GradeRepository(getActivity().getApplication());
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -36,11 +40,12 @@ public class HomeFragment extends Fragment {
                 createButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (semisterNameEditText.getText().toString().equals("")){
-                            Toast.makeText(getActivity(),"Please Insert Semister Name",Toast.LENGTH_LONG).show();
-                        }else {
+                        if (semisterNameEditText.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Please Insert Semister Name", Toast.LENGTH_LONG).show();
+                        } else {
                             String semisterName = semisterNameEditText.getText().toString();
-                            Toast.makeText(getActivity(),"Semister Name : "+semisterName,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Semister Name : " + semisterName, Toast.LENGTH_LONG).show();
+                            insertSemister(semisterName);
                             dialog.dismiss();
                         }
                     }
@@ -51,6 +56,12 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void insertSemister(String semisterName) {
+        Semister temp = new Semister(semisterName, 0.0);
+        repository.InsertSemister(temp);
+
     }
 
 
