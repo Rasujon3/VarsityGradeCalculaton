@@ -31,7 +31,7 @@ class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.viewH
         Semister currentSemister = mySemisterList.get(position);
 
         holder.semisterNameTextView.setText(currentSemister.getSemisterName());
-        holder.semisterCreditTextView.setText(currentSemister.getSemisterCredit()+"");
+        holder.semisterCreditTextView.setText("Credit: "+currentSemister.getSemisterCredit()+"");
 
     }
 

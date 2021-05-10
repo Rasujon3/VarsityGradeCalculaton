@@ -12,21 +12,41 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
     View root;
     GradeRepository repository;
+    RecyclerView recyclerView;
+    HomeRecyclerAdapter adapter;
+
+    List<Semister> allSemisters = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
         repository = new GradeRepository(getActivity().getApplication());
+
+        recyclerView = root.findViewById(R.id.home_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        for (int i=1;i<100;i++){
+            allSemisters.add(new Semister("Semister Name"+i,00.00));
+        }
+        adapter=new HomeRecyclerAdapter(allSemisters);
+        recyclerView.setAdapter(adapter);
+
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
