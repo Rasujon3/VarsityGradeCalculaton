@@ -80,6 +80,10 @@ public class HomeFragment extends Fragment {
 
     private void insertSemister(String semisterName) {
         Semister temp = new Semister(semisterName, 0.0);
+
+        allSemisters.add(temp);
+        adapter.notifyDataSetChanged();
+
         repository.InsertSemister(temp);
 
     }
