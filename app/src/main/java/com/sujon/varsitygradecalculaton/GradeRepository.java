@@ -1,6 +1,7 @@
 package com.sujon.varsitygradecalculaton;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
@@ -8,7 +9,7 @@ public class GradeRepository {
     private CourseDao courseDao;
     private SemisterDao semisterDao;
 
-    public GradeRepository(Application application) {
+    public GradeRepository(Context application) {
         GradeDatabase db = GradeDatabase.getDatabase(application);
         courseDao = db.courseDao();
         semisterDao=db.semisterDao();
@@ -21,7 +22,7 @@ public class GradeRepository {
 
     private static class InsertTask extends AsyncTask<Semister,Void,Void>{
         private SemisterDao dao;
-        InsertTask(SemisterDao semisterDao){
+         InsertTask(SemisterDao semisterDao){
             dao=semisterDao;
         }
 
