@@ -14,5 +14,9 @@
     <string name="dialog_title">Create New Semister</string>
     <string name="dialog_edittext_hint">Semister Name</string>
     <string name="create">Create</string>
+    <string name="title">Insert your course credit and gpa</string>
+    <string name="credit">Credit</string>
+    <string name="gpa">GPA</string>
+    <string name="_00_00">00.00</string>
 
 </resources>

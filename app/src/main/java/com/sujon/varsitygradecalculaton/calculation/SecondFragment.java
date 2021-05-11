@@ -1,4 +1,4 @@
-package com.sujon.varsitygradecalculaton;
+package com.sujon.varsitygradecalculaton.calculation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import com.sujon.varsitygradecalculaton.DataController;
+import com.sujon.varsitygradecalculaton.R;
 
 public class SecondFragment extends Fragment {
     View rootview;

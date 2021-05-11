@@ -16,16 +16,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.sujon.varsitygradecalculaton.DataController;
 import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
-import com.sujon.varsitygradecalculaton.SecondFragment;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment implements HomeFragmentInterface {
     View root;
