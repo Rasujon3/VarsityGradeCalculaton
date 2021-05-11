@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.sujon.varsitygradecalculaton.DataController;
 import com.sujon.varsitygradecalculaton.R;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
@@ -44,13 +45,20 @@ class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.viewH
         }
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder{
+    public class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView semisterNameTextView,semisterCreditTextView;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             semisterNameTextView=itemView.findViewById(R.id.semistername_item_textview);
             semisterCreditTextView=itemView.findViewById(R.id.semisterCredit_item_textview);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            DataController.instance.getHomeFragmentInterface().onSemisterItemClick(mySemisterList.get(getAbsoluteAdapterPosition()));
+
         }
     }
 

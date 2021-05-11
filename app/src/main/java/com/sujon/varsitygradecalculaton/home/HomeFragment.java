@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.sujon.varsitygradecalculaton.DataController;
 import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
 import com.sujon.varsitygradecalculaton.model.Semister;
@@ -25,13 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeFragmentInterface {
     View root;
     GradeRepository repository;
     RecyclerView recyclerView;
     HomeRecyclerAdapter adapter;
 
     List<Semister> allSemisters = new ArrayList<>();
+    DataController controller;
 
     @Nullable
     @NonNull
@@ -49,6 +51,10 @@ public class HomeFragment extends Fragment {
 
         adapter = new HomeRecyclerAdapter(allSemisters);
         recyclerView.setAdapter(adapter);
+
+        controller = DataController.getInstance();
+        controller.setHomeFragmentInterface(this);
+
         FloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,5 +95,10 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSemisterItemClick(Semister semister) {
+        Toast.makeText(getContext(),"Name"+semister.getSemisterName(),Toast.LENGTH_SHORT).show();
+
+    }
 }
 
