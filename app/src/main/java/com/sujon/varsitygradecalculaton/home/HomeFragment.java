@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.sujon.varsitygradecalculaton.DataController;
 import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
+import com.sujon.varsitygradecalculaton.SecondFragment;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
 import java.util.ArrayList;
@@ -97,8 +98,10 @@ public class HomeFragment extends Fragment implements HomeFragmentInterface {
 
     @Override
     public void onSemisterItemClick(Semister semister) {
-        Toast.makeText(getContext(),"Name"+semister.getSemisterName(),Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(getContext(),"Name"+semister.getSemisterName(),Toast.LENGTH_SHORT).show();
+        controller.setCurrentSemister(semister);
+        NavHostFragment.findNavController(HomeFragment.this)
+                .navigate(R.id.action_FirstFragment_to_SecondFragment);
     }
 }
 
