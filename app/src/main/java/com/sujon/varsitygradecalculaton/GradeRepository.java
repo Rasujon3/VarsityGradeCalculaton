@@ -5,9 +5,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 public class GradeRepository {
     private CourseDao courseDao;
     private SemisterDao semisterDao;
+
+    List<Semister> mySemisterList=new ArrayList<>();
 
     public GradeRepository(Context application) {
         GradeDatabase db = GradeDatabase.getDatabase(application);
@@ -20,6 +26,20 @@ public class GradeRepository {
 
     }
 
+    public List<Semister>GetAllSemisters(){
+        try {
+            mySemisterList = new GetAllSemisterTask(semisterDao).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mySemisterList;
+    }
+
+
+
+//background task
     private static class InsertTask extends AsyncTask<Semister,Void,Void>{
         private SemisterDao dao;
          InsertTask(SemisterDao semisterDao){
@@ -30,6 +50,19 @@ public class GradeRepository {
         protected Void doInBackground(Semister... semisters) {
             dao.InsertSemister(semisters[0]);
             return null;
+        }
+    }
+
+    private static class GetAllSemisterTask extends AsyncTask<Void,Void,List<Semister>>{
+        SemisterDao dao;
+        GetAllSemisterTask(SemisterDao semisterDao){
+            dao=semisterDao;
+        }
+
+        @Override
+        protected List<Semister> doInBackground(Void... voids) {
+            return dao.GetAllSemisters();
+
         }
     }
 

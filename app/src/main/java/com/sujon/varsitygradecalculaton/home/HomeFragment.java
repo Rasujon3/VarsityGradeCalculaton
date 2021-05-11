@@ -44,10 +44,10 @@ public class HomeFragment extends Fragment {
         recyclerView = root.findViewById(R.id.home_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        for (int i=1;i<100;i++){
-            allSemisters.add(new Semister("Semister Name"+i,00.00));
-        }
-        adapter=new HomeRecyclerAdapter(allSemisters);
+
+        allSemisters = repository.GetAllSemisters();
+
+        adapter = new HomeRecyclerAdapter(allSemisters);
         recyclerView.setAdapter(adapter);
         FloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
