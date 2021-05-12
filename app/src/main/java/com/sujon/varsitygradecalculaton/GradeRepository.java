@@ -2,6 +2,7 @@ package com.sujon.varsitygradecalculaton;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import androidx.room.Delete;
 import com.sujon.varsitygradecalculaton.model.Course;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
@@ -51,6 +52,10 @@ public class GradeRepository {
             e.printStackTrace();
         }
         return mySemisterList;
+    }
+
+    public void DeleteCourse(Course course){
+        new deleteCourseTask(courseDao).execute(course);
     }
 
 
@@ -103,6 +108,19 @@ public class GradeRepository {
         @Override
         protected List<Course> doInBackground(Integer... integers) {
             return dao.GetCoursesBySemisterId(integers[0]);
+        }
+    }
+
+    private static class deleteCourseTask extends AsyncTask<Course,Void,Void>{
+        CourseDao dao;
+        public deleteCourseTask(CourseDao courseDao) {
+            dao=courseDao;
+        }
+
+        @Override
+        protected Void doInBackground(Course... courses) {
+            dao.DeleteCourse(courses[0]);
+            return null;
         }
     }
 

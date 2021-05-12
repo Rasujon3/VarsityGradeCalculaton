@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,6 +66,20 @@ public class SecondFragment extends Fragment {
 
         fab = rootview.findViewById(R.id.fab_courseFragment);
 
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Delete(viewHolder.getAbsoluteAdapterPosition());
+            }
+        }).attachToRecyclerView(recyclerView);
+
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +123,14 @@ public class SecondFragment extends Fragment {
 
         Toast.makeText(getContext(), controller.getCurrentSemister().getSemisterName(), Toast.LENGTH_SHORT).show();
         return rootview;
+    }
+
+    private void Delete(int position) {
+        Course course = myCourses.get(position);
+        repository.DeleteCourse(course);
+        myCourses.remove(course);
+        adapter.notifyDataSetChanged();
+
     }
 
     private void CalculateCGPAList(List<Course> myCourses) {
