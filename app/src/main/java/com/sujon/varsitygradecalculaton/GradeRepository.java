@@ -24,12 +24,24 @@ public class GradeRepository {
     }
 
     public void InsertSemister(Semister semister){
-        new InsertTask(semisterDao).execute(semister);
+//        new InsertTask(semisterDao).execute(semister);
+        GradeDatabase.databaseExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                semisterDao.InsertSemister(semister);
+            }
+        });
 
     }
 
     public void InsertCourseList(List<Course>myCourses){
-        new courseListTask(courseDao).execute(myCourses);
+//        new courseListTask(courseDao).execute(myCourses);
+        GradeDatabase.databaseExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseDao.InsertCourseList(myCourses);
+            }
+        });
     }
 
     public List<Course> GetCourseById(int semisterId){
@@ -55,24 +67,19 @@ public class GradeRepository {
     }
 
     public void DeleteCourse(Course course){
-        new deleteCourseTask(courseDao).execute(course);
+//        new deleteCourseTask(courseDao).execute(course);
+        GradeDatabase.databaseExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseDao.DeleteCourse(course);
+            }
+        });
     }
 
 
 
 //background task
-    private static class InsertTask extends AsyncTask<Semister,Void,Void>{
-        private SemisterDao dao;
-         InsertTask(SemisterDao semisterDao){
-            dao=semisterDao;
-        }
 
-        @Override
-        protected Void doInBackground(Semister... semisters) {
-            dao.InsertSemister(semisters[0]);
-            return null;
-        }
-    }
 
     private static class GetAllSemisterTask extends AsyncTask<Void,Void,List<Semister>>{
         SemisterDao dao;
@@ -87,18 +94,7 @@ public class GradeRepository {
         }
     }
 
-    private static class courseListTask extends AsyncTask<List<Course>,Void,Void> implements com.sujon.varsitygradecalculaton.courseListTask {
-        CourseDao dao;
-        public courseListTask(CourseDao courseDao) {
-            dao=courseDao;
-        }
 
-        protected Void doInBackground(List<Course>... lists) {
-            dao.InsertCourseList(lists[0]);
-            return null;
-        }
-
-    }
 
     private static class GetCourseListTask extends AsyncTask<Integer,Void,List<Course>>{
         CourseDao dao;
@@ -111,17 +107,5 @@ public class GradeRepository {
         }
     }
 
-    private static class deleteCourseTask extends AsyncTask<Course,Void,Void>{
-        CourseDao dao;
-        public deleteCourseTask(CourseDao courseDao) {
-            dao=courseDao;
-        }
-
-        @Override
-        protected Void doInBackground(Course... courses) {
-            dao.DeleteCourse(courses[0]);
-            return null;
-        }
-    }
 
 }
