@@ -14,6 +14,7 @@ public class GradeRepository {
     private SemisterDao semisterDao;
 
     List<Semister> mySemisterList=new ArrayList<>();
+    List<Course> allcourses =new ArrayList<>();
 
     public GradeRepository(Context application) {
         GradeDatabase db = GradeDatabase.getDatabase(application);
@@ -28,6 +29,17 @@ public class GradeRepository {
 
     public void InsertCourseList(List<Course>myCourses){
         new courseListTask(courseDao).execute(myCourses);
+    }
+
+    public List<Course> GetCourseById(int semisterId){
+        try {
+            allcourses = new GetCourseListTask(courseDao).execute(semisterId).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return allcourses;
     }
 
     public List<Semister>GetAllSemisters(){
@@ -81,6 +93,17 @@ public class GradeRepository {
             return null;
         }
 
+    }
+
+    private static class GetCourseListTask extends AsyncTask<Integer,Void,List<Course>>{
+        CourseDao dao;
+        GetCourseListTask(CourseDao courseDao){
+            dao=courseDao;
+        }
+        @Override
+        protected List<Course> doInBackground(Integer... integers) {
+            return dao.GetCoursesBySemisterId(integers[0]);
+        }
     }
 
 }
