@@ -45,7 +45,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/previous"
+            android:text="@string/add"
             android:id="@+id/button"
             android:ems="8"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="25dp"
@@ -70,5 +70,15 @@
             android:layout_marginTop="8dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_courseFragment"
+            android:src="@drawable/ic_save_icon"
+
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

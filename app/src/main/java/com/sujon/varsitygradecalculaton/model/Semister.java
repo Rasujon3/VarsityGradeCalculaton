@@ -21,6 +21,10 @@ public class Semister {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getSemisterName() {
         return semisterName;
     }

@@ -13,9 +13,8 @@ public class Course {
     public double courseCredit;
     public int semisterId;
 
-    public Course(int id, String courseName, double courseGpa, double courseCredit, int semisterId) {
-        this.id = id;
-        this.courseName = courseName;
+    public Course( double courseGpa, double courseCredit, int semisterId) {
+
         this.courseGpa = courseGpa;
         this.courseCredit = courseCredit;
         this.semisterId = semisterId;
