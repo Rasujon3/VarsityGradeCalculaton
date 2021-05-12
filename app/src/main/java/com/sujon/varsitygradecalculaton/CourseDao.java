@@ -16,6 +16,9 @@ public interface CourseDao {
     @Query("select * from Course where semisterId = :semisterId")
     List<Course>GetCoursesBySemisterId(int semisterId);
 
+    @Insert
+    void InsertCourseList(List<Course> courses);
+
     @Query("Delete from Course")
     void DeleteAllCourses();
 

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sujon.varsitygradecalculaton.DataController;
+import com.sujon.varsitygradecalculaton.GradeRepository;
 import com.sujon.varsitygradecalculaton.R;
 import com.sujon.varsitygradecalculaton.model.Course;
 
@@ -39,10 +40,13 @@ public class SecondFragment extends Fragment {
     List<Course> myCourses = new ArrayList<>();
     FloatingActionButton fab;
 
+    GradeRepository repository;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview=inflater.inflate(R.layout.fragment_second, container, false);
         controller=DataController.getInstance();
+        repository=new GradeRepository(getContext());
         creditText = rootview.findViewById(R.id.editTextTextPersonName);
         gpaText = rootview.findViewById(R.id.editTextTextPersonName2);
         addButton = rootview.findViewById(R.id.button);
@@ -72,11 +76,18 @@ public class SecondFragment extends Fragment {
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setMessage("Do you want to save?")
-                        .setTitle("Warning")
+                        .setTitle("Warning!")
                         .setCancelable(true)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                // save course list
+                                if (myCourses==null||myCourses.size()==0){
+                                    Toast.makeText(getContext(),"Please add a course",Toast.LENGTH_SHORT).show();
+                                }else {
+                                    repository.InsertCourseList(myCourses);
+                                    Toast.makeText(getContext(),"Course Saved Successfully!!",Toast.LENGTH_SHORT).show();
+                                }
 
                             }
                         })
@@ -85,7 +96,7 @@ public class SecondFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
-                        });
+                        }).show();
             }
         });
 

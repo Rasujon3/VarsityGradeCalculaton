@@ -1,8 +1,8 @@
 package com.sujon.varsitygradecalculaton;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import com.sujon.varsitygradecalculaton.model.Course;
 import com.sujon.varsitygradecalculaton.model.Semister;
 
 import java.util.ArrayList;
@@ -24,6 +24,10 @@ public class GradeRepository {
     public void InsertSemister(Semister semister){
         new InsertTask(semisterDao).execute(semister);
 
+    }
+
+    public void InsertCourseList(List<Course>myCourses){
+        new courseListTask(courseDao).execute(myCourses);
     }
 
     public List<Semister>GetAllSemisters(){
@@ -64,6 +68,19 @@ public class GradeRepository {
             return dao.GetAllSemisters();
 
         }
+    }
+
+    private static class courseListTask extends AsyncTask<List<Course>,Void,Void> implements com.sujon.varsitygradecalculaton.courseListTask {
+        CourseDao dao;
+        public courseListTask(CourseDao courseDao) {
+            dao=courseDao;
+        }
+
+        protected Void doInBackground(List<Course>... lists) {
+            dao.InsertCourseList(lists[0]);
+            return null;
+        }
+
     }
 
 }
