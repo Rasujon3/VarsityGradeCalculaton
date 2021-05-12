@@ -29,12 +29,12 @@ public class SecondFragment extends Fragment {
     View rootview;
     DataController controller;
 
-    EditText creditText,gpaText;
+    EditText creditText, gpaText;
     Button addButton;
     TextView cgpaTextView;
 
-    double totalCredit=0;
-    double productofGPAandCredit=0;
+    double totalCredit = 0;
+    double productofGPAandCredit = 0;
     RecyclerView recyclerView;
     CourseRecyclerAdapter adapter;
     List<Course> myCourses = new ArrayList<>();
@@ -44,16 +44,20 @@ public class SecondFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview=inflater.inflate(R.layout.fragment_second, container, false);
-        controller=DataController.getInstance();
-        repository=new GradeRepository(getContext());
-        myCourses=repository.GetCourseById(controller.getCurrentSemister().getId());
+        rootview = inflater.inflate(R.layout.fragment_second, container, false);
+        controller = DataController.getInstance();
+        repository = new GradeRepository(getContext());
+        cgpaTextView = rootview.findViewById(R.id.textView3);
+        myCourses = repository.GetCourseById(controller.getCurrentSemister().getId());
+        if (myCourses.size() > 0) {
+            CalculateCGPAList(myCourses);
+        }
 
         creditText = rootview.findViewById(R.id.editTextTextPersonName);
         gpaText = rootview.findViewById(R.id.editTextTextPersonName2);
         addButton = rootview.findViewById(R.id.button);
-        cgpaTextView = rootview.findViewById(R.id.textView3);
-        recyclerView=rootview.findViewById(R.id.courseRecyclerview);
+
+        recyclerView = rootview.findViewById(R.id.courseRecyclerview);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CourseRecyclerAdapter(myCourses);
@@ -84,11 +88,11 @@ public class SecondFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // save course list
-                                if (myCourses==null||myCourses.size()==0){
-                                    Toast.makeText(getContext(),"Please add a course",Toast.LENGTH_SHORT).show();
-                                }else {
+                                if (myCourses == null || myCourses.size() == 0) {
+                                    Toast.makeText(getContext(), "Please add a course", Toast.LENGTH_SHORT).show();
+                                } else {
                                     repository.InsertCourseList(myCourses);
-                                    Toast.makeText(getContext(),"Course Saved Successfully!!",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Course Saved Successfully!!", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -102,20 +106,30 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        Toast.makeText(getContext(),controller.getCurrentSemister().getSemisterName(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), controller.getCurrentSemister().getSemisterName(), Toast.LENGTH_SHORT).show();
         return rootview;
     }
 
-    public void CalculateCGPA(String gpa,String credit){
+    private void CalculateCGPAList(List<Course> myCourses) {
+        for (int i = 0; i < myCourses.size(); i++) {
+            Course temp = myCourses.get(i);
+            totalCredit += temp.getCourseCredit();
+            productofGPAandCredit += (temp.getCourseCredit() * temp.getCourseGpa());
+        }
+        double cgpa = productofGPAandCredit / totalCredit;
+        cgpaTextView.setText(String.format("CGPA: %.2f", cgpa));
+    }
+
+    public void CalculateCGPA(String gpa, String credit) {
         double gpaValue = Double.parseDouble(gpa);
         double creditValue = Double.parseDouble(credit);
 
         productofGPAandCredit += (gpaValue * creditValue);
         totalCredit += creditValue;
         double cgpa = productofGPAandCredit / totalCredit;
-        cgpaTextView.setText(String.format("CGPA: %.2f",cgpa));
+        cgpaTextView.setText(String.format("CGPA: %.2f", cgpa));
 
-        Course course = new Course(gpaValue,creditValue,controller.getCurrentSemister().getId());
+        Course course = new Course(gpaValue, creditValue, controller.getCurrentSemister().getId());
 
         myCourses.add(course);
         adapter.notifyDataSetChanged();
